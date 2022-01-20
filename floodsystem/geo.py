@@ -7,6 +7,7 @@ geographical data.
 """
 
 from haversine import haversine
+from collections import Counter
 from bisect import bisect
 from .utils import sorted_by_key  # noqa
 
@@ -42,7 +43,13 @@ def stations_by_river(stations):
     rivers = {}
     for station in stations:
         if station.river in rivers:
-            rivers[station.river] = rivers[station.river] + [station]
+            rivers[station.river].append(station)
         else:
             rivers[station.river] = [station]
     return rivers
+
+
+def rivers_by_station_number(stations, N):
+    count = Counter(s.river for s in stations)
+    count_of_nth = count.most_common(N)[-1][1]
+    return [(r, c) for (r, c) in count.most_common() if c >= count_of_nth]
