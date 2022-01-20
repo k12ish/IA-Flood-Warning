@@ -7,6 +7,7 @@ geographical data.
 """
 
 from haversine import haversine
+from collections import Counter
 from bisect import bisect
 from .utils import sorted_by_key  # noqa
 
@@ -26,9 +27,16 @@ def stations_within_radius(stations, centre, r):
     distances = [d for (_, d) in stations_by_dist]
     return stations[:bisect(distances, r)]
 
+
 def rivers_with_station(stations):
     """
     Given  list of stations, return as set of all the
     rivers names contained within these stations
     """
     return set([station.river for station in stations])
+
+
+def rivers_by_station_number(stations, N):
+    count = Counter(s.river for s in stations)
+    count_of_nth = count.most_common(N)[-1][1]
+    return [(r, c) for (r, c) in count.most_common() if c >= count_of_nth]
