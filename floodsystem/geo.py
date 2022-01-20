@@ -17,3 +17,10 @@ def stations_by_distance(stations, p):
     """
     return sorted_by_key([(station, haversine(p, station.coord))
                           for station in stations], 1)
+
+def rivers_with_station(stations):
+    """
+    Given  list of stations, return as set of all the
+    rivers names contained within these stations
+    """
+    return set([station.river for station in stations])
