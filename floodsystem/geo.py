@@ -25,3 +25,10 @@ def stations_within_radius(stations, centre, r):
     stations = [s for (s, _) in stations_by_dist]
     distances = [d for (_, d) in stations_by_dist]
     return stations[:bisect(distances, r)]
+
+def rivers_with_station(stations):
+    """
+    Given  list of stations, return as set of all the
+    rivers names contained within these stations
+    """
+    return set([station.river for station in stations])
