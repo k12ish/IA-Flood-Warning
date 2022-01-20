@@ -39,6 +39,11 @@ class MonitoringStation:
         return d
 
     def typical_range_consistent(self):
+        """
+        return false if the typical range is inconsistent,
+        e.g. if the lower range is greater tha the upper range
+        or if there is no range given
+        """
         if self.typical_range is None:
             return False
         if self.typical_range[0] > self.typical_range[1]:
@@ -47,6 +52,10 @@ class MonitoringStation:
 
 
 def inconsistent_typical_range_stations(stations):
+    """
+    return a list of all stations of which the rage is inconsistent,
+    inconsistent as defined in typical_range_consistent()
+    """
     inconsistent_stations = []
     for station in stations:
         if not station.typical_range_consistent():
