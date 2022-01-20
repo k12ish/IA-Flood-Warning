@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
+from floodsystem.analysis import polyfit
 
 
 def plot_water_levels(station, dates, levels):
@@ -13,6 +14,19 @@ def plot_water_levels(station, dates, levels):
                linestyles="dashed",
                label="Typical Range")
 
+    plt.xlabel('date')
+    plt.ylabel('water level (m)')
+    plt.title("{}, {}".format(station.name, station.town), )
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.legend()
+    plt.show()
+
+
+def plot_water_level_with_fit(station, dates, levels, p):
+    plt.plot(dates, levels, label="Current Data")
+    poly, d0 = polyfit(dates, levels, p)
+    plt.plot(dates, poly(dates - d0))
     plt.xlabel('date')
     plt.ylabel('water level (m)')
     plt.title("{}, {}".format(station.name, station.town), )
