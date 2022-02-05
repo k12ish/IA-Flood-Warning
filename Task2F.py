@@ -14,8 +14,10 @@ def run():
     for station, _ in stations_and_rel_level:
         dates, levels = fetch_measure_levels(station.measure_id,
                                              dt=datetime.timedelta(days=2))
-        assert len(dates) > 0, "Could not fetch measure levels"
-        plot_water_level_with_fit(station, dates, levels, 4)
+        if dates:
+            plot_water_level_with_fit(station, dates, levels, 4)
+        else:
+            print("Could not fetch measure levels for", station.name)
 
 
 if __name__ == "__main__":
