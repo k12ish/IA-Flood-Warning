@@ -14,13 +14,19 @@ def run():
 
     # Print station and latest level for first 5 stations in list
     names = [
-        'Bourton Dickler', 'Surfleet Sluice', 'Gaw Bridge', 'Hemingford',
-        'Swindon'
+        "Bourton Dickler",
+        "Surfleet Sluice",
+        "Gaw Bridge",
+        "Hemingford",
+        "Swindon",
     ]
     for station in stations:
         if station.name in names:
-            print("Station name and current level: {}, {}".format(
-                station.name, station.latest_level))
+            print(
+                "Station name and current level: {}, {}".format(
+                    station.name, station.latest_level
+                )
+            )
 
     # Alternative implementation
     # for station in [s for s in stations if s.name in names]:

@@ -23,14 +23,14 @@ def fetch(url):
 
 def dump(data, filename):
     """Save JSON object to file"""
-    f = open(filename, 'w')
+    f = open(filename, "w")
     data = json.dump(data, f)
     f.close()
 
 
 def load(filename):
     """Load JSON object from file"""
-    f = open(filename, 'r')
+    f = open(filename, "r")
     data = json.load(f)
     f.close()
     return data
@@ -53,12 +53,12 @@ def fetch_station_data(use_cache=True):
     # http://environment.data.gov.uk/flood-monitoring/doc/reference)
     url = "http://environment.data.gov.uk/flood-monitoring/id/stations?status=Active&parameter=level&qualifier=Stage&_view=full"  # noqa
 
-    sub_dir = 'cache'
+    sub_dir = "cache"
     try:
         os.makedirs(sub_dir)
     except FileExistsError:
         pass
-    cache_file = os.path.join(sub_dir, 'station_data.json')
+    cache_file = os.path.join(sub_dir, "station_data.json")
 
     # Attempt to load station data from file, otherwise fetch over
     # Internet
@@ -84,12 +84,12 @@ def fetch_latest_water_level_data(use_cache=False):
     # URL for retrieving data
     url = "http://environment.data.gov.uk/flood-monitoring/id/measures?parameter=level&qualifier=Stage&qualifier=level"  # noqa
 
-    sub_dir = 'cache'
+    sub_dir = "cache"
     try:
         os.makedirs(sub_dir)
     except FileExistsError:
         pass
-    cache_file = os.path.join(sub_dir, 'level_data.json')
+    cache_file = os.path.join(sub_dir, "level_data.json")
 
     # Attempt to load level data from file, otherwise fetch over
     # Internet
@@ -120,7 +120,7 @@ def fetch_measure_levels(measure_id, dt):
 
     # Construct URL for fetching data
     url_base = measure_id
-    url_options = "/readings/?_sorted&since=" + start.isoformat() + 'Z'
+    url_options = "/readings/?_sorted&since=" + start.isoformat() + "Z"
     url = url_base + url_options
 
     # Fetch data
@@ -128,12 +128,12 @@ def fetch_measure_levels(measure_id, dt):
 
     # Extract dates and levels
     dates, levels = [], []
-    for measure in data['items']:
+    for measure in data["items"]:
         # Convert date-time string to a datetime object
-        d = dateutil.parser.parse(measure['dateTime'])
+        d = dateutil.parser.parse(measure["dateTime"])
 
         # Append data
         dates.append(d)
-        levels.append(measure['value'])
+        levels.append(measure["value"])
 
     return dates, levels

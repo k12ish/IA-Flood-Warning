@@ -15,7 +15,9 @@ def test_stations_within_radius():
     coord2 = (1, 2)
     s2 = MonitoringStation(s_id, m_id, label, coord2, trange, river, town)
     stations = [s1, s2]
-    close_stations = stations_within_radius(stations, (0, 0), haversine.haversine(coord1, (0,0)))
+    close_stations = stations_within_radius(
+        stations, (0, 0), haversine.haversine(coord1, (0, 0))
+    )
 
     assert s1 in close_stations
 

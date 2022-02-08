@@ -9,8 +9,10 @@ for manipulating/modifying station data
 
 class MonitoringStation:
     """This class represents a river level monitoring station"""
-    def __init__(self, station_id, measure_id, label, coord, typical_range,
-                 river, town):
+
+    def __init__(
+        self, station_id, measure_id, label, coord, typical_range, river, town
+    ):
 
         self.station_id = station_id
         self.measure_id = measure_id
@@ -61,8 +63,9 @@ class MonitoringStation:
             return None
 
         # return value
-        return (self.latest_level - self.typical_range[0])/(self.typical_range[1] - self.typical_range[0])
-
+        return (self.latest_level - self.typical_range[0]) / (
+            self.typical_range[1] - self.typical_range[0]
+        )
 
 
 def inconsistent_typical_range_stations(stations):

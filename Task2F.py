@@ -12,8 +12,9 @@ def run():
     update_water_levels(stations)
     stations_and_rel_level = stations_highest_rel_level(stations, 5)
     for station, _ in stations_and_rel_level:
-        dates, levels = fetch_measure_levels(station.measure_id,
-                                             dt=datetime.timedelta(days=2))
+        dates, levels = fetch_measure_levels(
+            station.measure_id, dt=datetime.timedelta(days=2)
+        )
         if dates:
             plot_water_level_with_fit(station, dates, levels, 4)
         else:

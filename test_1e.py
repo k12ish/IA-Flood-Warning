@@ -34,4 +34,3 @@ def test_rivers_by_station_number():
 
     for river in ["My River 1", "My River 2", "My River 3"]:
         assert river in [item[0] for item in river_list]
-
