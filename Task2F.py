@@ -6,7 +6,7 @@ from floodsystem.flood import stations_highest_rel_level
 
 
 def run():
-    """Requirements for Task 2E"""
+    """Requirements for Task 2F"""
 
     stations = build_station_list()
     update_water_levels(stations)
@@ -14,10 +14,12 @@ def run():
     for station, _ in stations_and_rel_level:
         dates, levels = fetch_measure_levels(station.measure_id,
                                              dt=datetime.timedelta(days=2))
-        print(dates, levels)
-        plot_water_level_with_fit(station, dates, levels, 4)
+        if dates:
+            plot_water_level_with_fit(station, dates, levels, 4)
+        else:
+            print("Could not fetch measure levels for", station.name)
 
 
 if __name__ == "__main__":
-    print("*** Task 2E: CUED Part IA Flood Warning System ***")
+    print("*** Task 2F: CUED Part IA Flood Warning System ***")
     run()
