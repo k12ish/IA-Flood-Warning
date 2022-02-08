@@ -3,7 +3,7 @@ from floodsystem.station import MonitoringStation
 import haversine
 
 
-def test_1b():
+def test_stations_by_distance():
     s_id = "test-s-id"
     m_id = "test-m-id"
     label = "some station"
