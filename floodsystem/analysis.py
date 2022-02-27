@@ -36,4 +36,4 @@ def predict_future_level(dates, levels):
 
     # one day after the most recent day
     future_date = max(x) + 1
-    return matplotlib.num2date(future_date), poly(future_date - d0)
+    return matplotlib.dates.num2date(future_date), poly(future_date - d0)
