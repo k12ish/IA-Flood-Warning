@@ -17,13 +17,18 @@ for station in stations:
     dates, levels = fetch_measure_levels(
         station.measure_id, dt=datetime.timedelta(days=10)
     )
-    level_tommorow = predict_future_level(dates, levels)
-    realtive_level_tommorow = (level_tommorow - station.typical_range[0]) / (
-            station.typical_range[1] - station.typical_range[0]
-        )
+    if predict_future_level(dates, levels) and station.typical_range:
+        level_tommorow = predict_future_level(dates, levels)[1]
+        realtive_level_tommorow = (level_tommorow - station.typical_range[0]) / (
+                station.typical_range[1] - station.typical_range[0]
+            )
+    else:
+        realtive_level_tommorow = 1
+
+    current_water_level = station.relative_water_level() or 1
 
     # if already flooded, eg water level more the double typical, rank severe
-    if station.relative_water_level() > 2:
+    if current_water_level > 2:
         risk_levels.append([station, "Severe"])
     # if extraperlated will flood within time X make severe
     elif realtive_level_tommorow > 1.9:
@@ -31,9 +36,9 @@ for station in stations:
     # if extrapolated will flood within time Y make high
     elif realtive_level_tommorow > 1.5:
         risk_levels.append([station, "High"])
-    elif station.relative_water_level() > 1.6:
+    elif current_water_level > 1.6:
         risk_levels.append([station, "High"])
-    elif station.relative_water_level() > 1.4:
+    elif current_water_level > 1.4:
         risk_levels.append([station, "Moderate"])
     else:
         risk_levels.append([station, "Low"])
