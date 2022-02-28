@@ -14,15 +14,16 @@ update_water_levels(stations)
 risk_levels = []
 
 for station in stations:
-    dates, levels = fetch_measure_levels(
-        station.measure_id, dt=datetime.timedelta(days=10)
-    )
-    if predict_future_level(dates, levels) and station.typical_range:
+
+    try:
+        dates, levels = fetch_measure_levels(
+            station.measure_id, dt=datetime.timedelta(days=10)
+        )
         level_tommorow = predict_future_level(dates, levels)[1]
         realtive_level_tommorow = (level_tommorow - station.typical_range[0]) / (
-                station.typical_range[1] - station.typical_range[0]
-            )
-    else:
+                station.typical_range[1] - station.typical_range[0])
+    except:
+        print("something happened")
         realtive_level_tommorow = 1
 
     current_water_level = station.relative_water_level() or 1
@@ -42,3 +43,5 @@ for station in stations:
         risk_levels.append([station, "Moderate"])
     else:
         risk_levels.append([station, "Low"])
+
+print(risk_levels)
